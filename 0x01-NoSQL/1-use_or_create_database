@@ -1,0 +1,5 @@
+// Create or use the database named my_db
+
+use my_db
+bye
+
