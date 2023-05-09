@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 """A Module to work with Pymongo"""
 
 
@@ -9,4 +8,7 @@ from pymongo.collection import Collection
 
 def list_all(mongo_collection: Collection) -> List[dict]:
     """A Function that Lists all Documents in a Mongo Collection"""
-    return list(mongo_collection.find())
+    docs = []
+    for document in mongo_collection.find():
+        docs.append(document)
+    return docs
