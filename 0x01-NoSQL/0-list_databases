@@ -1,7 +1,4 @@
 // A Script to List all Databases in MongoDB
 
-mongo <<EOF
-    db.adminCommand({listDatabases: 1, scale: 1024*1024*1024})
-    bye
-EOF
-
+show databases
+bye
