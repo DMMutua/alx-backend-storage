@@ -16,10 +16,10 @@ def count_calls(func: Callable) -> Callable:
     """A Decorator that Counts Number of Times a Method is called."""
 
     @wraps(func)
-    def wrapper(self, *args, **kwargs):
+    def wrapper(*args, **kwargs):
         key = func.__qualname__
         self.__redis.incr(key)
-        return func(self, *args, **kwargs)
+        return func(*args, **kwargs)
 
     return wrapper
 
