@@ -28,8 +28,10 @@ class Cache:
         return key
 
     def get(self, key: str, fn: Callable[[bytes], any] = None) -> any:
-        """take a `key` string argument and an optional Callable argument named `fn`.
-        This callable will be used to convert the data back to the desired format."""
+        """take a `key` string argument and an
+        optional Callable argument named `fn`.
+        This callable will be used to convert
+        the data back to the desired format."""
 
         data = self._redis.get(key)
         if data is None:
@@ -41,11 +43,13 @@ class Cache:
         return data
 
     def get_str(self, key: str) -> str:
-        """Gets the Random Key as Input, Retrives data and returns the data as a `str`"""
+        """Gets the Random Key as Input,
+        Retrives data and returns the data as a `str`"""
 
         return self.get(key, fn=lambda d: d.decode("utf-8"))
 
     def get_int(self, key: str) -> int:
-        """Given Random Key as Input, Retrieves Cached data from Redit and returns as `int`"""
+        """Given Random Key as Input,
+        Retrieves Cached data from Redit and returns as `int`"""
 
         return self.get(key, fn=int)
