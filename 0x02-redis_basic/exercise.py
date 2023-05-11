@@ -6,8 +6,9 @@ Caching Functions and Methods"""
 
 import redis
 import uuid
-from typing import Union
+from typing import Union, Callable, Optional, Any, TypeVar
 
+T = TypeVar('T')
 
 class Cache:
     """Class to Hold Implementation of Different Caching functions"""
@@ -27,7 +28,7 @@ class Cache:
         self._redis.set(key, data)
         return key
 
-    def get(self, key: str, fn: Callable[[bytes], any] = None) -> any:
+    def get(self, key: str, fn: Optional[Callable[[bytes], T]] = None) -> Optional[T]:
         """take a `key` string argument and an
         optional Callable argument named `fn`.
         This callable will be used to convert
