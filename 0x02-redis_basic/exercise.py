@@ -25,6 +25,7 @@ def count_calls(func: Callable) -> Callable:
         return func(self, *args, **kwargs)
     return wrapper
 
+
 def call_history(method: Callable) -> Callable:
     """A Decorator that Stores the Call
     History of Cache Methods"""
@@ -38,6 +39,20 @@ def call_history(method: Callable) -> Callable:
         self._redis.rpush(key_outputs, output)
         return output
     return wrapper
+
+
+def replay(func: Callable) -> None:
+    """display the history of calls of a particular function.
+    """
+
+    key_inputs = f"{func.__qualname__}:inputs"
+    key_outputs = f"{func.__qualname__}:outputs"
+    inputs = cache._redis.lrange(key_inputs, 0, -1)
+    outputs = cache._redis.lrange(key_outputs, 0, -1)
+    print(f"{func.__qualname__} was called {len(inputs)} times:")
+    for inp, out in zip(inputs, outputs):
+        print(f"{func.__qualname__}(*{inp.decode('utf-8')}) ->
+                {out.decode('utf-8')}")
 
 
 class Cache:
